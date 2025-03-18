@@ -287,18 +287,15 @@ function Subproduct() {
 
           {relatedProducts.length > 0 && (
             <>
-              <div className="pt-4">
+              <div className="pt-4 mt-10">
                 <h2 className="text-2xl md:text-[36px] 2xl:text-5xl font-bold mb-2">
                   Related Products
                 </h2>
-                <p className="text-start w-full md:w-2/3 2xl:text-xl">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+              
               </div>
 
               <div
-                className={`pb-8 relative px-4 md:px-0 mt-16 transition-opacity duration-700 ${
+                className={`pb-8 relative px-4 md:px-0 mt-10 transition-opacity duration-700 ${
                   isVisible ? "opacity-100" : "opacity-0"
                 }`}
               >

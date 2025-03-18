@@ -20,6 +20,7 @@ const AboutUs = () => {
       const result = await response.json();
       if (result.status && result.data?.length > 0) {
         setAboutData(result.data[0]);
+       
       }
       setLoading(false);
     } catch (error) {
@@ -27,7 +28,8 @@ const AboutUs = () => {
       setLoading(false);
     }
   };
-
+  console.log("here img", aboutData);
+  
   // Function to handle image click
   const handleImageClick = (imageSrc) => {
     setSelectedImage(selectedImage === imageSrc ? null : imageSrc);

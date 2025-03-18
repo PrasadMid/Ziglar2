@@ -196,20 +196,23 @@ const Categories = ({ onCategorySelect }) => {
       </button>
      
       <div
-        className={`w-full  md:w-64 2xl:w-96 flex-shrink-0 transition-all duration-300 ease-in-out
+        className={`w-full  md:w-64 2xl:w-96  flex-shrink-0 transition-all duration-300 ease-in-out
            ${isMobileView && !isSidebarOpen ? "hidden" : "block"}`}    
       >
         <div className="border sticky top-5 bottom-0 z-20 h-max rounded-lg shadow-lg transition-shadow hover:shadow-xl bg-white w-full md:max-w-[300px] ">
           <div className="bg-gray-50 p-4 2xl:p-6 border-b">
             <Link to="/product">
               <h2 className="text-22px font-Poppins font-normal text-[#099CD6] 2xl:text-4xl"> 
-                <button onClick={handleClick2}>
-                  Categories All items
+              Categories
+                <button onClick={handleClick2}className={`px-4 ml-4 py-2 text-white font-semibold rounded-lg transition"`}
+                style={{background: "radial-gradient(circle, rgba(11,47,231,0.9052871148459384) 0%, rgba(70,141,252,1) 100%)"}}
+                >
+                  All items
                 </button>
               </h2>
             </Link>
           </div>
-          <div className="divide-y text-[16px] 2xl:text-2xl text-left font-normal font-Poppins text-[#414141] max-h-[calc(100vh-150px)] overflow-y-auto">
+          <div className="divide-y ps-3 text-[16px] 2xl:text-2xl text-left font-normal font-Poppins text-[#414141] max-h-[calc(100vh-150px)] overflow-y-auto">
             {categories.map((category, index) => (
               <CategoryItem
                 key={index}

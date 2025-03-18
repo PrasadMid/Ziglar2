@@ -5,15 +5,30 @@ import SearchBar from "./product/SearchBar";
 import Constant from "../utils/Constant";
 
 const Navbar = () => {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const [contactData, setContactData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [catalogLoading, setCatalogLoading] = useState(false);
+  const [link, setLink]=useState(null)
+  
+ 
+  
 
   useEffect(() => {
     setShowTagline(true);
   }, []);
+  useEffect(()=>{
+    const fetchLink=async()=>{
+      const response1 = await fetch(`https://midknighttestdomain.site/api/v1/get-qlc-info`);
+          if (!response1.ok) throw new Error(`API 1 failed: ${response1.status}`);
+          const data1 = await response1.json();
+          setLink(data1.data);
+          console.log("Link", data1.data[0].qic_link)
+    }
+    fetchLink()
+  },[])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -149,7 +164,7 @@ const Navbar = () => {
                   Products
                 </Link>
                 <a className="text-gray-600 text-center lg:text-left cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(125,207,182,1)] hover:to-[rgba(9,156,214,1)] hover:text-transparent hover:bg-clip-text" 
-                href="https://midknighttestdomain.site/api/v1/get-qlc-info"
+                href={link[0].qic_link}
                  target="_blank"
                 aria-label="QIC Info">
                   QIC
@@ -189,7 +204,9 @@ const Navbar = () => {
             </div>
 
             <div className="relative mt-4 lg:mt-0 w-full lg:w-64 2xl:w-[500px]">
-              <SearchBar />
+              <SearchBar 
+               
+               />
             </div>
             
             {/* Mobile catalog button */}

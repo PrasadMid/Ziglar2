@@ -36,6 +36,7 @@ const SearchBar = () => {
       const result = await response.json();
       if (result.data) {
         setSuggestions(result.data);
+        console.log("search", result.data)
       } else {
         setSuggestions([]);
       }
@@ -108,6 +109,7 @@ const SearchBar = () => {
         <SearchSuggestions
           suggestions={suggestions}
           onSelect={handleSearchSelect}
+          
         />
       )}
     </div>

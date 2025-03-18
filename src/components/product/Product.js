@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import Categories from "./Categories";
-import { Link } from "react-router-dom";
+import { data, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 
@@ -20,6 +20,9 @@ const Product = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [productNo, SetProductNo]=useState(1);
+  const [noOfItems, setNoOfItems]=useState(0)
+  const [items1, setItems]=useState(0)
 
   // Listen for search updates from navbar
   useEffect(() => {
@@ -52,14 +55,24 @@ const Product = () => {
           const response1 = await fetch(`https://midknighttestdomain.site/api/v1/get-total-products?page=${currentPage}`);
           if (!response1.ok) throw new Error(`API 1 failed: ${response1.status}`);
           const data1 = await response1.json();
+          console.log('data1',data1);
+          
           combinedData = [...data1.data];
         
           setProducts(combinedData)
+          console.log("total Page",data1.to)
+          let totalPageNo=Math.ceil(data1.total/12)
+          setTotalPages(totalPageNo)
+          setNoOfItems(data1.to)
+          SetProductNo(data1.total)
+          setItems(noOfItems+1)
           
   
         } else if (searchQuery) {
          
-          url = `https://midknighttestdomain.site/api/v1/search?query=${searchQuery}`;
+          url = `https://midknighttestdomain.site/api/v1/search/${searchQuery}`;
+
+        
         } else if (selectedSubChildCategory) {
         
           url = `https://midknighttestdomain.site/api/v1/get-sub-child-products-child?main_category_id=${selectedCategory}&child_category_id=${selectedChildCategory}&sub_child_category_id=${selectedSubChildCategory}&page=${currentPage}`;
@@ -76,6 +89,13 @@ const Product = () => {
           if (!response.ok) throw new Error(`Network response was not ok (Status: ${response.status})`);
           const data = await response.json();
           combinedData = data.data;
+
+          console.log("page", data.to);
+          let totalPageNo=Math.ceil(data.total/12)
+          setTotalPages(totalPageNo)
+          setNoOfItems(data.to)
+          SetProductNo(data.total)
+          setItems(noOfItems+1)
         }
   
         console.log("Final Merged Data:", combinedData);
@@ -112,7 +132,7 @@ const Product = () => {
         });
   
         setProducts(mappedProducts);
-        setTotalPages(1); // Assuming pagination is handled by first API
+       // Assuming pagination is handled by first API
       } catch (error) {
         console.error("Fetch error:", error);
         setError(error.message);
@@ -122,6 +142,7 @@ const Product = () => {
     };
   
     fetchProducts();
+    
     
   }, [selectedCategory, selectedChildCategory, selectedSubChildCategory, currentPage, searchQuery]);
   
@@ -159,6 +180,7 @@ const Product = () => {
   console.log('here',filteredProducts)
   console.log("filtered" , filteredProducts)
   const itemsPerPage = 12; // Adjust based on your API response
+  console.log('filter', filteredProducts.length)
   const totalItems = filteredProducts.length; // Total products
   const startIndex = (currentPage - 1) * itemsPerPage + 1;
   const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems);
@@ -209,12 +231,9 @@ const Product = () => {
             <div className="mb-6 2xl:mb-10">
               <p className="text-[#414141] text-[16px] 2xl:text-2xl font-bold font-Poppins">
                 {/* Showing 1-12 of 24 item(s) */}
-                Showing {totalItems > 0 ? startIndex : 0}-{totalItems > 0 ? endIndex : 0} of {totalItems} item(s)
+                Showing {items1} to {noOfItems} of {productNo}  item(s)
               </p>
-              <p className="text-[#949494] text-[16px] 2xl:text-2xl font-normal mt-2 2xl:mt-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua
-              </p>
+              
             </div>
             {/* Loading and Error States */}
             {isLoading && (
@@ -256,14 +275,9 @@ const Product = () => {
          
             {totalPages > 0 && (
             <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-                disabled={currentPage===1}
-                
-                className="mx-2 px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
+              <button onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1}>
+          Previous
+        </button>
               
               <span className="mx-4">
               <progress 
@@ -273,17 +287,21 @@ const Product = () => {
                    [&::-webkit-progress-bar]:bg-white 
                   [&::-webkit-progress-value]:bg-gray-500"
               >
-                Hello
+                
               </progress>
-              Showing {totalItems > 0 ? startIndex : 0}-{totalItems > 0 ? endIndex : 0} of {totalItems} item(s)
+              <span className="mx-4">
+          Page {currentPage} of {totalPages}
+        </span>
+              {/* Showing {totalItems > 0 ? startIndex : 0}-{totalItems > 0 ? endIndex : 0} of {totalItems} item(s) */}
               </span>
+              
               <button
-                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-                className="mx-2 px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-              >
-                Next
-              </button>
+          onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+          disabled={currentPage === totalPages}
+          className="mx-2 px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
               </div>
           )}
 
