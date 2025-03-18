@@ -170,7 +170,7 @@ const Categories = ({ onCategorySelect }) => {
   };
 
   return (
-    <div className="sticky top-20 h-max">
+    <>
       <button
         className="md:hidden w-full mb-4 p-3 bg-gray-50 rounded-lg flex items-center justify-between transform transition-all duration-300 hover:shadow-md"
         onClick={() => setSidebarOpen(!isSidebarOpen)}
@@ -196,10 +196,10 @@ const Categories = ({ onCategorySelect }) => {
       </button>
      
       <div
-        className={`w-full md:w-64 2xl:w-96 flex-shrink-0 transition-all duration-300 ease-in-out
+        className={`w-full  md:w-64 2xl:w-96 flex-shrink-0 transition-all duration-300 ease-in-out
            ${isMobileView && !isSidebarOpen ? "hidden" : "block"}`}    
       >
-        <div className="border rounded-lg shadow-lg transition-shadow hover:shadow-xl bg-white w-full md:max-w-[300px]">
+        <div className="border sticky top-5 bottom-0 z-20 h-max rounded-lg shadow-lg transition-shadow hover:shadow-xl bg-white w-full md:max-w-[300px] ">
           <div className="bg-gray-50 p-4 2xl:p-6 border-b">
             <Link to="/product">
               <h2 className="text-22px font-Poppins font-normal text-[#099CD6] 2xl:text-4xl"> 
@@ -223,7 +223,7 @@ const Categories = ({ onCategorySelect }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

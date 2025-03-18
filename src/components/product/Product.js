@@ -32,175 +32,7 @@ const Product = () => {
     };
   }, []);
 
-//   // Update search query when navigating with state
-//   useEffect(() => {
-//     if (location.state?.searchQuery) {
-//       setSearchQuery(location.state.searchQuery);
-//     }
-//   }, [location.state]);
 
-// //  Fetch products based on selected categories
-//   useEffect(() => {
-//     const fetchProducts = async () => {
-//       if (!selectedCategory && !searchQuery) return;
-
-//       setIsLoading(true);
-//       setError(null);
-
-//       try {
-//         let url;
-//         if (searchQuery) {
-//           url = `https://midknighttestdomain.site/api/v1/search?query=${encodeURIComponent(searchQuery)}`
-//           console.log('here')
-//         } else if (selectedSubChildCategory) {
-//           url = `https://midknighttestdomain.site/api/v1/get-sub-child-products-child?main_category_id=${selectedCategory}&child_category_id=${selectedChildCategory}&sub_child_category_id=${selectedSubChildCategory}&page=${currentPage}`;
-//           console.log('here')
-//         } else if (selectedChildCategory) {
-//           url = `https://midknighttestdomain.site/api/v1/get-child-products-main?main_category_id=${selectedCategory}&child_category_id=${selectedChildCategory}&page=${currentPage}`;
-//           console.log('here')
-//         } else{
-//         url = `https://midknighttestdomain.site/api/v1/get-main-products`;
-//         console.log('here go')
-        
-//         }
-       
-
-//         const response = await fetch(url);
-//         console.log('res',response)
-//         if (!response.ok) {
-//           throw new Error("Network response was not ok");
-//         }
-//         const data = await response.json();
-//         console.log(data);
-
-//         const mappedProducts = searchQuery
-//           ? data.data.map((product) => {
-//               // Handle image path for search results
-//               let imagePath = "";
-//               if (typeof product.product_images === "string") {
-//                 try {
-//                   const images = JSON.parse(product.product_images);
-//                   imagePath = Array.isArray(images) ? images[0] : "";
-//                 } catch {
-//                   imagePath = product.product_images;
-//                 }
-//               } else if (Array.isArray(product.product_images)) {
-//                 imagePath = product.product_images[0];
-//               }
-
-//               // Also check for child and sub-child product images
-//               if (!imagePath) {
-//                 if (typeof product.child_product_images === "string") {
-//                   try {
-//                     const images = JSON.parse(product.child_product_images);
-//                     imagePath = Array.isArray(images) ? images[0] : "";
-//                   } catch {
-//                     imagePath = product.child_product_images;
-//                   }
-//                 } else if (Array.isArray(product.child_product_images)) {
-//                   imagePath = product.child_product_images[0];
-//                 }
-//               }
-
-//               if (!imagePath) {
-//                 if (typeof product.sub_child_product_images === "string") {
-//                   try {
-//                     const images = JSON.parse(product.sub_child_product_images);
-//                     imagePath = Array.isArray(images) ? images[0] : "";
-//                   } catch {
-//                     imagePath = product.sub_child_product_images;
-//                   }
-//                 } else if (Array.isArray(product.sub_child_product_images)) {
-//                   imagePath = product.sub_child_product_images[0];
-//                 }
-//               }
-
-//               // Clean up the image path
-//               imagePath = imagePath?.replace(/[\[\]\"]/g, "");
-
-//               return {
-//                 id: product.product_sequence_id,
-//                 name:
-//                   product.product_name ||
-//                   product.child_product_name ||
-//                   product.sub_child_product_name ||
-//                   "Unnamed Product",
-//                 image: imagePath,
-//                 type: product.type,
-//               };
-//             })
-//           : data.data.map((product) => {
-//               // Handle image path
-//               let imagePath = "";
-//               if (typeof product.product_images === "string") {
-//                 try {
-//                   const images = JSON.parse(product.product_images);
-//                   imagePath = Array.isArray(images) ? images[0] : "";
-//                 } catch {
-//                   imagePath = product.product_images;
-//                 }
-//               } else if (Array.isArray(product.product_images)) {
-//                 imagePath = product.product_images[0];
-//               }
-
-//               if (typeof product.child_product_images === "string") {
-//                 try {
-//                   const images = JSON.parse(product.child_product_images);
-//                   imagePath = Array.isArray(images) ? images[0] : "";
-//                 } catch {
-//                   imagePath = product.child_product_images;
-//                 }
-//               } else if (Array.isArray(product.child_product_images)) {
-//                 imagePath = product.child_product_images[0];
-//               }
-
-//               if (typeof product.sub_child_product_images === "string") {
-//                 try {
-//                   const images = JSON.parse(product.sub_child_product_images);
-//                   imagePath = Array.isArray(images) ? images[0] : "";
-//                 } catch {
-//                   imagePath = product.sub_child_product_images;
-//                 }
-//               } else if (Array.isArray(product.sub_child_product_images)) {
-//                 imagePath = product.sub_child_product_images[0];
-//               }
-
-//               // Clean up the image path
-//               imagePath = imagePath?.replace(/[\[\]\"]/g, "");
-
-//               return {
-//                 id:
-//                   product.product_sequence_id ||
-//                   product.child_product_sequence_id ||
-//                   product.sub_child_product_sequence_id,
-//                 name:
-//                   product.product_name ||
-//                   product.child_product_name ||
-//                   product.sub_child_product_name ||
-//                   "Unnamed Product",
-//                 image: imagePath,
-//                 type: product.type,
-//               };
-//             });
-
-//         setProducts(mappedProducts);
-     
-//         setTotalPages(data.last_page || 1);
-//         setIsLoading(false);
-//       } catch (error) {
-//         setError(error.message);
-//         setIsLoading(false);
-//       }
-//     };
-
-//     fetchProducts();
-//   }, [
-//     selectedCategory,
-//     selectedChildCategory,
-//     selectedSubChildCategory,
-//     currentPage,
-//     searchQuery,
-//   ]);
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
@@ -215,59 +47,15 @@ const Product = () => {
           console.log("Fetching all products from multiple APIs...");
   
       
-//           const response1 = await fetch(`https://midknighttestdomain.site/api/v1/get-total-products?page=${currentPage}`);
-//           if (!response1.ok) throw new Error(`API 1 failed: ${response1.status}`);
 
-//           const data1 = await response1.json();
-
-//           //  Merge all product arrays into one final array
-//             const FinalData = [
-//                ...(data1.data.products || []),
-//                ...(data1.data.child_products || []),
-//                ...(data1.data.sub_child_products || [])
-//                 ].flat(Infinity);
-
-// console.log([...FinalData]);
-//           combinedData = Array.isArray(data1.data) ? FinalData : [];
-
-
-//combinedData = mergedProducts;
   
           const response1 = await fetch(`https://midknighttestdomain.site/api/v1/get-total-products?page=${currentPage}`);
           if (!response1.ok) throw new Error(`API 1 failed: ${response1.status}`);
           const data1 = await response1.json();
           combinedData = [...data1.data];
-
-          // const response1 = await fetch(`https://midknighttestdomain.site/api/v1/get-main-products?page=${currentPage}`);
-          // if (!response1.ok) throw new Error(`API 1 failed: ${response1.status}`);
-          // const data1 = await response1.json();
-          // combinedData = [...data1.data];
-
-  
-         
-          // const response2 = await fetch(`https://midknighttestdomain.site/api/v1/get-child-products?page=${currentPage}`);
-          // if (!response2.ok) throw new Error(`API 2 failed: ${response2.status}`);
-          // const data2 = await response2.json();
-          // combinedData = [...combinedData, ...data2.data];
-  
         
-          // const response3 = await fetch(`https://midknighttestdomain.site/api/v1/get-sub-child-products?page=${currentPage}`);
-          // if (!response3.ok) throw new Error(`API 3 failed: ${response3.status}`);
-          // const data3 = await response3.json();
-          // combinedData = [...combinedData, ...data3.data];
           setProducts(combinedData)
-          // const response2 = await fetch(`https://midknighttestdomain.site/api/v1/get-child-products?page=${currentPage}`);
-          // if (!response2.ok) throw new Error(`API 2 failed: ${response2.status}`);
-          // const data2 = await response2.json();
-          // combinedData = [...combinedData, ...data2.data];
-  
-        
-          // const response3 = await fetch(`https://midknighttestdomain.site/api/v1/get-sub-child-products?page=${currentPage}`);
-          // if (!response3.ok) throw new Error(`API 3 failed: ${response3.status}`);
-          // const data3 = await response3.json();
-          // combinedData = [...combinedData, ...data3.data];
-          // console.log(`here ${combinedData}`)
-          // setProducts(combinedData)
+          
   
         } else if (searchQuery) {
          
@@ -378,13 +166,11 @@ const Product = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8 2xl:max-w-[2000px] 2xl:px-8 h-max overflow-auto 2xl:py-12 items-start">
-        <div className=" relative p-4 flex flex-col  md:flex-row gap-8 2xl:gap-12 h-max  items-start ">
-        <div className="flex">
-      <div className="w-full md:w-1/4 lg:w-1/5">
-        <Categories onCategorySelect={handleCategorySelect} />
-      </div>
-    </div>
+      <div className="max-w-7xl mx-auto justify-items-normal px-4 py-8 2xl:max-w-[2000px] h-[100%] items-start overflow-auto ">
+        <div className="  flex flex-col md:flex-row gap-8 2xl:gap-12   ">
+          
+          <Categories onCategorySelect={handleCategorySelect}  />
+         
        
       
           {/* Main Content */}
@@ -467,33 +253,7 @@ const Product = () => {
               </div>
             )}
 
-            {/* Pagination */}
-            {/* {totalPages > 1 && (
-              <div className="flex justify-center mt-8">
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(1, prev - 1))
-                  }
-                  disabled={currentPage === 1}
-                  className="mx-2 px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                <span className="mx-4">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(totalPages, prev + 1))
-                  }
-                  disabled={currentPage === totalPages}
-                  className="mx-2 px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                >
-                  Next
-                </button>
-              </div>
-            )} */}
-            {/* Pagination */}
+         
             {totalPages > 0 && (
             <div className="flex justify-center mt-8">
               <button

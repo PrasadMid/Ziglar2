@@ -54,7 +54,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="z-0 border-t sticky border-gray-500 py-8 lg:pl-[50px] mb-4 ">
+    <footer className="z-0 border-t sticky h-4 border-gray-500 py-8 lg:pl-[50px] mb-4 ">
       <div className="container mx-auto px-4 lg:mt-12 xsm:mt-7">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="lg:leading-[45px] xsm:leading-[38px]">
