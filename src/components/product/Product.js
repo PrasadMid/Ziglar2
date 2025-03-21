@@ -263,7 +263,7 @@ const Product = () => {
                         alt={product.name}
                         className="h-[200px] md:h-[316px] 2xl:h-[600px] object-contain mb-4 2xl:mb-6 transition-transform duration-300 transform hover:scale-110"
                       />
-                      <h3 className="text-center font-medium text-sm md:text-base 2xl:text-2xl transition-colors duration-300 hover:text-white">
+                      <h3 className="text-center font-medium text-sm md:text-base 2xl:text-2xl transition-colors duration-300 hover:text-slate-700">
                         {product.name}
                       </h3>
                     </div>
