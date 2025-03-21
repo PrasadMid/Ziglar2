@@ -14,7 +14,7 @@ const Product = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedChildCategory, setSelectedChildCategory] = useState(null);
   const [selectedSubChildCategory, setSelectedSubChildCategory] = useState(null);
-  const [categories, setCategories] = useState(null);
+ // const [categories, setCategories] = useState(null);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +22,6 @@ const Product = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [productNo, SetProductNo]=useState(1);
   const [noOfItems, setNoOfItems]=useState(0)
-  const [items1, setItems]=useState(0)
 
   // Listen for search updates from navbar
   useEffect(() => {
@@ -65,7 +64,7 @@ const Product = () => {
           setTotalPages(totalPageNo)
           setNoOfItems(data1.to)
           SetProductNo(data1.total)
-          setItems(noOfItems+1)
+          
           
   
         } else if (searchQuery) {
@@ -95,7 +94,9 @@ const Product = () => {
           setTotalPages(totalPageNo)
           setNoOfItems(data.to)
           SetProductNo(data.total)
-          setItems(noOfItems+1)
+          
+        
+          
         }
   
         console.log("Final Merged Data:", combinedData);
@@ -221,7 +222,6 @@ const Product = () => {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="3"
                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
                   </svg>
@@ -231,7 +231,7 @@ const Product = () => {
             <div className="mb-6 2xl:mb-10">
               <p className="text-[#414141] text-[16px] 2xl:text-2xl font-bold font-Poppins">
                 {/* Showing 1-12 of 24 item(s) */}
-                Showing {items1} to {noOfItems} of {productNo}  item(s)
+                Showing {(currentPage - 1) * 12 + 1} to {noOfItems} of {productNo}  item(s)
               </p>
               
             </div>
@@ -252,7 +252,7 @@ const Product = () => {
                     key={product.id}
                   >
                     <div
-                      className={`product-card bg-[#A6A6A6] rounded-lg p-4 2xl:p-8 
+                      className={`product-card bg-slate-100 drop-shadow-md rounded-lg p-4 2xl:p-8 
                         transform transition-all duration-500 hover:scale-105 hover:shadow-xl
                         cursor-pointer opacity-0
                         flex justify-center items-center flex-col`}
