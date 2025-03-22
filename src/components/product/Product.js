@@ -178,13 +178,13 @@ const Product = () => {
       product.name.toLowerCase().includes((searchQuery || "").toLowerCase())
       
   );
-  console.log('here',filteredProducts)
-  console.log("filtered" , filteredProducts)
-  const itemsPerPage = 12; // Adjust based on your API response
-  console.log('filter', filteredProducts.length)
-  const totalItems = filteredProducts.length; // Total products
-  const startIndex = (currentPage - 1) * itemsPerPage + 1;
-  const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems);
+  // console.log('here',filteredProducts)
+  // console.log("filtered" , filteredProducts)
+  // const itemsPerPage = 12; // Adjust based on your API response
+  // // console.log('filter', filteredProducts.length)
+  // const totalItems = filteredProducts.length; // Total products
+  // const startIndex = (currentPage - 1) * itemsPerPage + 1;
+  // const endIndex = Math.min(startIndex + itemsPerPage - 1, totalItems);
      
   return (
     <>

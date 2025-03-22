@@ -64,6 +64,7 @@ function Subproduct() {
       }
 
       const data = await response.json();
+      console.log('final',)
       let productData = null;
       let relatedProductsData = [];
 
@@ -164,13 +165,13 @@ function Subproduct() {
     );
   };
   const renderManualsContent = () => {
-    if (!productDetails?.datasheet || !Array.isArray(productDetails.datasheet)) {
+    if (!productDetails?.manuals || !Array.isArray(productDetails.manuals)) {
       return <p className="text-gray-600">No manuals available</p>;
     }
   
     return (
       <div className="flex flex-wrap gap-4 justify-center">
-        {productDetails.datasheet.map((pdfPath, index) => (
+        {productDetails.manuals.map((pdfPath, index) => (
           <a
             key={index}
             href={`${BASE_URL}${pdfPath}`}
