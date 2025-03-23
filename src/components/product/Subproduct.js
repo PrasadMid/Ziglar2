@@ -64,7 +64,7 @@ function Subproduct() {
       }
 
       const data = await response.json();
-      console.log('final',)
+      
       let productData = null;
       let relatedProductsData = [];
 
@@ -96,7 +96,7 @@ function Subproduct() {
       if (!productData) {
         throw new Error("Product not found");
       }
-      console.log("product info",productData)
+      // console.log("product info",productData.manuals.names)
 
       const transformedRelatedProducts = relatedProductsData.map((product) => ({
         id: product.id,
@@ -115,6 +115,7 @@ function Subproduct() {
       setIsLoading(false);
     }
   };
+  console.log('here', productDetails)
 
   const moveSlide = (direction) => {
     if (!containerRef.current) return;
@@ -134,18 +135,19 @@ function Subproduct() {
 
   const renderDatasheetContent = () => {
     if (
-      !productDetails?.datasheet ||
-      !Array.isArray(productDetails.datasheet)
-      
-    ){
+      !productDetails?.datasheet || 
+      !Array.isArray(productDetails.datasheet.names) || 
+      !Array.isArray(productDetails.datasheet.pdfs)
+    ) {
       return <p className="text-gray-600">No datasheets available</p>;
     }
+  
     return (
       <div className="flex flex-wrap gap-4 justify-center">
-        {productDetails.datasheet.map((pdfPath, index) => (
+        {productDetails.datasheet.names.map((name, index) => (
           <a
             key={index}
-            href={`${BASE_URL}${pdfPath}`}
+            href={`${BASE_URL}${productDetails.datasheet.pdfs[index]}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg"
@@ -158,42 +160,45 @@ function Subproduct() {
             >
               <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
             </svg>
-            Datasheet {index + 1}
+            {name}
           </a>
         ))}
       </div>
     );
   };
-  const renderManualsContent = () => {
-    if (!productDetails?.manuals || !Array.isArray(productDetails.manuals)) {
+  
+  const renderManualsContent = () => { 
+    if (!productDetails?.manuals || 
+        !Array.isArray(productDetails.manuals.names) || 
+        !Array.isArray(productDetails.manuals.pdfs)) {
       return <p className="text-gray-600">No manuals available</p>;
     }
   
     return (
       <div className="flex flex-wrap gap-4 justify-center">
-        {productDetails.manuals.map((pdfPath, index) => (
+        {productDetails.manuals.names.map((name, index) => (
           <a
             key={index}
-            href={`${BASE_URL}${pdfPath}`}
+            href={`${BASE_URL}${productDetails.manuals.pdfs[index]}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md hover:shadow-lg"
           >
             <svg
-            className="w-5 h-5 mr-2"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5 mr-2"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-  <path d="M12 16l4-5h-3V4h-2v7H8l4 5zm-6 2h12v2H6v-2z"/>
-</svg>
-
-            Manuals {index + 1}
+              <path d="M12 16l4-5h-3V4h-2v7H8l4 5zm-6 2h12v2H6v-2z"/>
+            </svg>
+            {name}
           </a>
         ))}
       </div>
     );
   };
+  
   
   if (isLoading)
     return (
